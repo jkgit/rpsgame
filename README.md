@@ -12,6 +12,6 @@ A simple Rock Paper Scissors game.
 
     % rails server
     
-## Running Rails tests (make sure server is running for tests)
+## Running Rails tests
 
     % rake test    
