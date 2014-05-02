@@ -1,0 +1,60 @@
+<h1>Play Rock Paper Scissors against a computer!</h1>
+
+<%= form_tag("/throw", method: "post") do %>
+	  <p>
+	 	<%= label_tag(:sign, "Which sign would you like to throw :") %>
+	  	<%= select_tag(:sign, options_for_select([['',''],['Rock', 'rock'], ['Paper', 'paper'], ['Scissors', 'scissors']])) %>
+	  </p>
+	  <p>
+	  	<%= submit_tag("Throw") %>
+	  </p>
+<%end%>
+
+<h2>Or, play an ajax version of Rock Paper Scissors.</h2>
+
+<div id="options">
+<%= link_to image_tag('rock.png', :id=>'rock'), {:action => 'throw', :sign => 'rock'}, :title=>'Throw Rock', :class=>'play', :onclick=>"throwSign('rock');return false;"%>
+<%= link_to image_tag('paper.png', :id=>'paper'), {:action => 'throw', :sign => 'paper'}, :title=>'Throw Paper', :class=>'play', :onclick=>"throwSign('paper');return false;"%>
+<%= link_to image_tag('scissors.png', :id=>'scissors'), {:action => 'throw', :sign => 'scissors'}, :title=>'Throw Scissors', :class=>'play', :onclick=>"throwSign('scissors');return false;"%>
+</div>
+<div id="results">
+	<div class="info">
+	</div>
+	<p>
+		<%= link_to "New Game", root_path, :onclick=>"newGame();return false;"%>
+	</p>
+</div>
+
+<script language="javascript">
+<!--
+function throwSign(sign) {
+	$.post( "/throw/"+sign, function( data ) {
+  		$("div#options").hide();
+  		$("div#results div.info").prepend();
+  		var msg = null;
+  		var top=$('#options img#'+data.user_sign).clone();
+  		var bottom=$('#options img#'+data.computer_sign).clone();
+  		
+  		if (data.result) {
+  			msg="beats";
+  		}
+  		else if (data.result==null) {
+  			msg=" ties ";
+  		}
+  		else {
+  			msg=" loses to ";
+  		}
+  		$("div#results div.info").prepend(bottom);
+  		$("div#results div.info").prepend(msg);
+  		$("div#results div.info").prepend(top);
+  		$("div#results").show();
+	}, "json");
+}
+
+function newGame() {
+	$("div#options").show();
+	$("div#results").hide();
+  	$("div#results div.info").empty();
+}
+//-->
+</script>

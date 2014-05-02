@@ -1,0 +1,3 @@
+<h1>You <%case when @result.nil?%>tie.<%when @result%>win!<%else%>lose.<%end%></h1>
+<p>You threw <%=@user_sign.type%>, and the computer threw <%=@computer_sign.type%>.</p>
+<%= link_to "New Game", root_path%>
