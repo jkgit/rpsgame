@@ -12,6 +12,8 @@ A simple Rock Paper Scissors game.
 
     % rails server
     
+Visit http://localhost:3000 in your browser.
+    
 ## Running Rails tests
 
     % rake test    
